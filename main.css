@@ -1,0 +1,39 @@
+.header {
+    margin-top: 5%;
+    text-align: center;
+}
+
+input#complex {
+    margin-left: 3%;
+}
+
+.basic-list {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.basic-list > input {
+    width: 2em;
+    height: 1.5em;
+    font-size: 1.0em;
+}
+
+li {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.direct-input {
+    margin-top: 3%;
+}
+
+.direct-input > input {
+    width: 5em;
+    height: 1.5em;
+    font-size: 1.0em;
+}
+
+.result {
+    text-align: right;
+    margin-bottom: 10%;
+}

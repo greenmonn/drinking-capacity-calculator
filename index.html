@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>주량계산기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <header class="header">
+            <h1 class="title">주량계산기</h1>
+            <h4 class="subtitle is-6">당신의 주량을 소주로 계산해드립니다</h4>
+
+            <hr>
+
+            <input type="radio" id="basic" value="basic" v-model="mode">
+            <label for="basic">basic mode</label>
+            <input type="radio" id="complex" value="complex" v-model="mode">
+            <label for="complex">complex mode</label>
+        </header>
+
+        <template v-if="mode == 'basic'">
+            <ul>
+                <li class="basic-list" v-for="drink in drinks">
+                    {{ drink.name }} * <input type="number" v-model.number="drink.input">
+                </li>
+            </ul>
+
+            <hr>
+
+            <div class="result title is-4">
+                = 소주 {{ capacity.toFixed(1) }} 잔 ({{ (capacity / 7.2).toFixed(1) }} 병)
+            </div>
+        </template>
+        <template v-else-if="mode == 'complex'">
+            <ul>
+                <li class="card" v-for="drink in drinks_complex">
+                    <header class="card-header">
+                        <p class="card-header-title"> {{ drink.name }} </p>
+                    </header>
+                    <div class="columns card-content">
+                        <div class="column">
+                            <h5 class="title is-5">도수 선택</h5>
+                            <div class="control" v-for="value, key in drink.type">
+                                <input type="radio" :id="drink.name + key" :value="value" v-model.number="drink.type_select">
+                                <label class="radio" :for="drink.name + key">
+                                    {{ key }}
+                                </label>
+                            </div>
+                            <div class="control direct-input">
+                                직접입력: <input type="number" v-model.number="drink.type_select"> 도
+                            </div>
+                        </div>
+                        <div class="column">
+                            <h5 class="title is-5">단위 선택</h5>
+                            <div class="control" v-for="value, key in drink.unit">
+                                <input type="radio" :id="drink.name + key" :value="value" v-model.number="drink.unit_select">
+                                <label class="radio" :for="drink.name + key">
+                                    {{ key }}
+                                </label>
+                            </div>
+                            <div class="control direct-input">
+                                직접입력: <input type="number" v-model.number="drink.unit_select"> mL
+                            </div>
+                        </div>
+                    </div>
+                    <input type="number" class="input" v-model.number="drink.input">
+
+                </li>
+            </ul>
+            <hr>
+
+            <div class="result title is-4">
+                = 소주 {{ capacity_complex.toFixed(1) }} 잔 ({{ (capacity_complex / 7.2).toFixed(1) }} 병)
+            </div>
+        </template>
+    </div>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Drinking Capacity Calculator</strong> by <a href="https://greenmon.xyz">Greenmon</a>. The
+                source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
